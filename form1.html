@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>信息收集表</title>
+    <style>
+        .form-table {
+            border-collapse: collapse;
+            width: 500px;
+            margin: 20px auto;
+        }
+        .form-table td {
+            padding: 10px;
+            vertical-align: top;
+        }
+        label {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        input, select, textarea {
+            width: 300px;
+            padding: 5px;
+        }
+        textarea {
+            height: 100px;
+        }
+        .submit-btn {
+            text-align: center;
+        }
+        button {
+            padding: 8px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">用户信息登记表</h2>
+    <form action="#">
+        <table class="form-table">
+            <tr>
+                <td><label for="name">姓　　名：</label></td>
+                <td><input type="text" id="name" name="name" required></td>
+            </tr>
+            <tr>
+                <td><label for="email">电子邮箱：</label></td>
+                <td><input type="email" id="email" name="email" required></td>
+            </tr>
+            <tr>
+                <td><label for="phone">联系电话：</label></td>
+                <td><input type="tel" id="phone" name="phone" pattern="[0-9]{11}"></td>
+            </tr>
+            <tr>
+                <td><label for="gender">性　　别：</label></td>
+                <td>
+                    <select id="gender" name="gender">
+                        <option value="male">男</option>
+                        <option value="female">女</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="birthday">出生日期：</label></td>
+                <td><input type="date" id="birthday" name="birthday"></td>
+            </tr>
+            <tr>
+                <td><label for="message">留　　言：</label></td>
+                <td><textarea id="message" name="message"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="submit-btn">
+                    <button type="submit">提交信息</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
