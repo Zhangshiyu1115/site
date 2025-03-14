@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume with Animated Ellipse</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        .ellipse {
+            width: 200px;
+            height: 100px;
+            background: radial-gradient(circle, red, yellow, green);
+            border-radius: 50%;
+            animation: colorChange 5s infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes colorChange {
+            0% { background: radial-gradient(circle, red, yellow, green); }
+            50% { background: radial-gradient(circle, green, yellow, red); }
+            100% { background: radial-gradient(circle, red, yellow, green); }
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 10px;
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .grid-item {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        h1 {
+            text-align: center;
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="ellipse"></div>
+    <div class="grid-container">
+        <h1>个人简历</h1>
+        <div class="grid-item">姓名</div>
+        <div class="grid-item">简小丽</div>
+        <div class="grid-item">年龄</div>
+        <div class="grid-item">26</div>
+        <div class="grid-item">性别</div>
+        <div class="grid-item">女</div>
+        <div class="grid-item">地址</div>
+        <div class="grid-item">湖南 长沙 岳麓区</div>
+        <div class="grid-item">电话</div>
+        <div class="grid-item">135-0000-0000</div>
+        <div class="grid-item">婚姻状况</div>
+        <div class="grid-item">已婚</div>
+        <div class="grid-item">求职意向</div>
+        <div class="grid-item">区域经理</div>
+        <div class="grid-item">工作经历</div>
+        <div class="grid-item">
+            <ul>
+                <li>社区服务站慢病管理员</li>
+                <li>药店店员（工作经验四年）</li>
+            </ul>
+        </div>
+        <div class="grid-item">教育经历</div>
+        <div class="grid-item">中专学历 （本人学历不高，正在就读成人高考）</div>
+        <div class="grid-item">社会关系</div>
+        <div class="grid-item">
+            <ul>
+                <li>家人从事教育行业老师和学校领导等工作。</li>
+                <li>本人对象与很多老板是朋友关系，具有一定的社会关系。</li>
+            </ul>
+        </div>
+        <div class="grid-item">自我评价</div>
+        <div class="grid-item">
+            <ul>
+                <li>对于市场具有一定的视察诊断能力，了解当地市场人流量、竞争情况、消费喜好、消费者分布情况。</li>
+                <li>对于产品、人员、价格等具有一定的管理能力。</li>
+                <li>对于营销知识及品牌知识等具有一定的了解。</li>
+                <li>具有一定的会预测、分析、洞察和规划布局等能力。</li>
+                <li>能快速了解公司营销方案并执行等能力。</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
