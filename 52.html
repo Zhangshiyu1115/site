@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二次方程求解器</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .calculator {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .equation-input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        input {
+            width: 60px;
+            padding: 8px;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 0 auto;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .solution-area {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            min-height: 80px;
+        }
+        .solution-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .solution-content {
+            font-family: 'Courier New', monospace;
+            white-space: pre-line;
+            line-height: 1.5;
+        }
+        .error {
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>二次方程求解器</h1>
+        
+        <div class="equation-input">
+            <input type="number" id="a" placeholder="a" step="any" value="1"> x² + 
+            <input type="number" id="b" placeholder="b" step="any" value="0"> x + 
+            <input type="number" id="c" placeholder="c" step="any" value="0"> = 0
+        </div>
+        
+        <button onclick="solveQuadratic()">求解</button>
+        
+        <div class="solution-area">
+            <div class="solution-title">解区域</div>
+            <div class="solution-content" id="solution">输入系数后点击"求解"按钮</div>
+        </div>
+    </div>
+
+    <script>
+        function solveQuadratic() {
+            // 获取输入元素和结果元素
+            const aInput = document.getElementById('a');
+            const bInput = document.getElementById('b');
+            const cInput = document.getElementById('c');
+            const solutionElement = document.getElementById('solution');
+            
+            // 重置可能的错误状态
+            solutionElement.className = 'solution-content';
+            
+            // 获取用户输入的系数
+            const a = parseFloat(aInput.value);
+            const b = parseFloat(bInput.value);
+            const c = parseFloat(cInput.value);
+            
+            // 验证输入是否为有效数字
+            if (isNaN(a) || isNaN(b) || isNaN(c)) {
+                solutionElement.innerText = "错误：请输入有效的数字系数";
+                solutionElement.classList.add('error');
+                return;
+            }
+            
+            let solutionText = "";
+            
+            // 处理退化情况(a=0，线性方程)
+            if (a === 0) {
+                if (b === 0) {
+                    if (c === 0) {
+                        solutionText = "无限多解 (0 = 0)";
+                    } else {
+                        solutionText = "无解 (矛盾方程)";
+                    }
+                } else {
+                    const x = -c / b;
+                    solutionText = `x = ${formatNumber(x)}`;
+                }
+            } else {
+                // 计算判别式
+                const delta = b * b - 4 * a * c;
+                
+                if (delta > 0) {
+                    // 两个不等实数解
+                    const x1 = (-b + Math.sqrt(delta)) / (2 * a);
+                    const x2 = (-b - Math.sqrt(delta)) / (2 * a);
+                    solutionText = `x₁ = ${formatNumber(x1)}\nx₂ = ${formatNumber(x2)}`;
+                } else if (delta === 0) {
+                    // 重根
+                    const x = -b / (2 * a);
+                    solutionText = `x = ${formatNumber(x)} (二重根)`;
+                } else {
+                    // 复数解
+                    const realPart = -b / (2 * a);
+                    const imagPart = Math.sqrt(-delta) / (2 * a);
+                    
+                    if (realPart === 0) {
+                        solutionText = `x₁ = ${formatNumber(imagPart)}i\nx₂ = -${formatNumber(imagPart)}i`;
+                    } else {solutionText = `x₁ = ${formatNumber(realPart)} + ${formatNumber(imagPart)}i\nx₂ = ${formatNumber(realPart)} - ${formatNumber(imagPart)}i`;
+                    }
+                }
+            }
+            
+            // 显示解
+            solutionElement.innerText = solutionText;
+            
+            // 同时在控制台输出
+            console.log("二次方程解:");
+            console.log(solutionText);
+        }
+        
+        function formatNumber(num) {
+            // 格式化数字，去除不必要的.0
+            if (Number.isInteger(num)) {
+                return num.toString();
+            }
+            
+            // 四舍五入到4位小数，然后去除末尾的0
+            const rounded = Math.round(num * 10000) / 10000;
+            let str = rounded.toString();
+            
+            // 如果是整数形式（如3.0000），返回整数
+            if (str.indexOf('.') !== -1) {
+                str = str.replace(/\.?0+$/, '');
+            }
+            
+            return str;
+        }
+    </script>
+</body>
+</html>
+         
