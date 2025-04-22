@@ -1,0 +1,16 @@
+
+        import re
+
+
+def righttime(d, timeslots):
+    import datetime
+    if not isinstance(d, datetime.datetime):
+        raise ValueError("d must be a datetime object")
+    day = d.strftime('%a').upper()
+    time_str = d.strftime('%H:%M')
+    for slot in timeslots:
+        days, times = slot.split(' ', 1)
+        start, end = times.split(' - ')
+        if day in days and start <= time_str <= end:
+            return True
+    return False
